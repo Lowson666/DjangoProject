@@ -60,8 +60,12 @@ def goodlist(request, typeid, pageid, sort):
         sumGoodList = GoodsInfo.objects.filter(
             gtype__id=typeid).order_by('-gclick')
     # 分页
-    paginator = Paginator(sumGoodList, 15)
+    # print(sumGoodList)
+    # for g in sumGoodList:
+    #     print(g.id)
+    paginator = Paginator(sumGoodList, 10)
     goodList = paginator.page(int(pageid))
+
     pindexlist = paginator.page_range
     # print pindexlist    xrange(1,2)
     # 确定商品的类型
@@ -76,6 +80,7 @@ def goodlist(request, typeid, pageid, sort):
                'pindexlist': pindexlist, 'pageid': int(pageid),'count':count}
 
     # 渲染返回结果
+
     return render(request, 'goods_page/list.html', context)
 
 
